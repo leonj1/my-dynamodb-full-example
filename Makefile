@@ -1,4 +1,4 @@
-.PHONY: help localstack-up localstack-down tf-init tf-up tf-down tf-plan build-tf-image
+.PHONY: help localstack-up localstack-down tf-init tf-up tf-down tf-plan build-tf-image build-integration-image integration
 
 help:
 	@echo "Available targets:"
@@ -10,6 +10,8 @@ help:
 	@echo "  tf-down          - Destroy Terraform resources"
 	@echo "  all-up           - Start LocalStack and apply Terraform"
 	@echo "  all-down         - Destroy Terraform resources and stop LocalStack"
+	@echo "  build-integration-image - Build the integration test Docker image"
+	@echo "  integration      - Run the integration tests against LocalStack"
 
 localstack-up:
 	docker-compose up -d
@@ -35,3 +37,9 @@ tf-down: build-tf-image
 all-up: localstack-up tf-init tf-up
 
 all-down: tf-down localstack-down
+
+build-integration-image:
+	docker build -t dynamodb-integration -f Dockerfile.integration .
+
+integration: build-integration-image
+	docker run --rm --network my-dynamodb-full-example_default dynamodb-integration

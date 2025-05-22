@@ -1,0 +1,19 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Python script
+COPY dynamodb_crud.py .
+
+# Create a modified version of the script that uses the correct endpoint
+RUN sed -i 's|http://localhost:4566|http://localstack:4566|g' dynamodb_crud.py
+
+# Make the script executable
+RUN chmod +x dynamodb_crud.py
+
+# Run the script when the container starts
+CMD ["python", "dynamodb_crud.py"]
