@@ -1,0 +1,5 @@
+FROM hashicorp/terraform:1.5.7
+
+WORKDIR /terraform
+
+ENTRYPOINT ["terraform"]
