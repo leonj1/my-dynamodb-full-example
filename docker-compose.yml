@@ -23,7 +23,6 @@ services:
     network_mode: host
     environment:
       AWS_REGION: us-east-1
-      AWS_ENDPOINT: http://0.0.0.0:6000
-      AWS_ACCESS_KEY_ID: fakeMyKeyId
-      AWS_SESSION_TOKEN: fakeSessionToken
-      AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
+      AWS_ENDPOINT: http://localhost:4566
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
