@@ -16,3 +16,14 @@ services:
     volumes:
       #- "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+
+  dynamodb-dashboard:
+    container_name: dynamodb-dashboard
+    image: kritishdhaubanjar/dynamodb-dashboard:latest
+    network_mode: host
+    environment:
+      AWS_REGION: us-east-1
+      AWS_ENDPOINT: http://0.0.0.0:6000
+      AWS_ACCESS_KEY_ID: fakeMyKeyId
+      AWS_SESSION_TOKEN: fakeSessionToken
+      AWS_SECRET_ACCESS_KEY: fakeSecretAccessKey
